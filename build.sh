@@ -1,5 +1,6 @@
 bundle install
 bundle exec jekyll build
+
 cd _site
 rm Gemfile Gemfile.lock README.md
 
