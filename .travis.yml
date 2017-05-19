@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+  - 2.3.3
+
+sudo: false
+
+branches:
+  only:
+  - master
+  - travis
+
+before_install:
+  - echo -e "machine github.com\n  login $GH_TOKEN" >> ~/.netrc
+
+script:
+- sh build.sh
+
+after_success:
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then sh publish.sh; fi
