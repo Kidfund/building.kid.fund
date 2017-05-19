@@ -2,6 +2,7 @@
 layout: post
 title:  "Welcome to Jekyll!"
 date:   2014-08-29 14:34:25
+author: tim
 category: Jekyll 
 tags: featured update2
 ---

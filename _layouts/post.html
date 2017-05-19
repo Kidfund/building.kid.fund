@@ -2,6 +2,7 @@
 ---
 <!DOCTYPE html>
 <html>
+  {% assign author = site.authors[page.author] %}
   {% include head.html %}
   <body itemscope itemtype="http://schema.org/Article">
     {% include header.html %}
@@ -18,8 +19,8 @@
           <div class="post-meta">
             <h1 class="post-title">{{ page.title }}</h1>
             <div class="cf post-meta-text">
-              <div class="author-image" style="background-image: url({{ site.author_image | prepend: site.baseurl }})">Blog Logo</div>
-              <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ site.author }}</h4>
+              <div class="author-image" style="background-image: url({{ author.image | prepend: site.baseurl }})">Blog Logo</div>
+              <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ author.name }}</h4>
               on
               <time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_string }}</time>
               , Filed in <span class="post-tag-{{ slug }}"><a href="/category/{{ page.category }}">{{ page.category }}</a></span>
@@ -35,8 +36,8 @@
           <div class="post-meta">
             <h1 class="post-title">{{ page.title }}</h1>
             <div class="cf post-meta-text">
-              <div class="author-image" style="background-image: url({{ site.author_image | prepend: site.baseurl }})">Blog Logo</div>
-              <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ page.author }}</h4>
+              <div class="author-image" style="background-image: url({{ author.image | prepend: site.baseurl }})">Blog Logo</div>
+              <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ author.name }}</h4>
               on
               <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
               , Filed in <span class="post-tag-{{ slug }}"><a href="/category/{{ page.category }}">{{ page.category }}</a></span>
@@ -71,9 +72,13 @@
           <div class="isLeft">
             <h5 class="index-headline featured"><span>Written by</span></h5>
             <section class="author">
-              <div class="author-image" style="background-image: url({{site.author_image | prepend: site.baseurl}})">Blog Logo</div>
-              <h4>{{ site.author }}</h4>
-              <p class="bio">{{author.bio}}</p>
+              <div class="author-image" style="background-image: url({{ author.image | prepend: site.baseurl }})">Blog Logo</div>
+              <h4>{% if author.github %}<a href="{{ author.site }}">{% endif %}{{ author.name }}{% if author.github %}</a>{% endif %}</h4>
+              <p>
+                {% if author.github %}<a class="icon-github" href="https://www.github.com/{{ author.github }}" title="github"><i class="fa fa-github"></i></a>{% endif %}
+                {% if author.twitter %}<a class="icon-twitter" href="https://twitter.com/{{ author.twitter }}" title="twitter"><i class="fa fa-twitter"></i></a>{% endif %}
+              <p>
+              <!-- <p class="bio">{{author.bio}}</p> -->
               <hr>
               <p class="published">Published <time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_string }}</time></p>
             </section>

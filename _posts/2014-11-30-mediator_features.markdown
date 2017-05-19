@@ -2,6 +2,7 @@
 layout: post
 title:  "Mediator Features"
 date:   2014-11-30 14:34:25
+author: michael
 category: Feature
 tags: featured mediator
 image: /assets/article_images/2014-11-30-mediator_features/night-track.JPG

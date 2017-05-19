@@ -1,5 +1,7 @@
 # Kidfund Product Blog
 
+[![Build Status](https://travis-ci.org/Kidfund/building.kid.fund.svg?branch=master)](https://travis-ci.org/Kidfund/building.kid.fund)
+
 Based on [mediator](https://github.com/dirkfabisch/mediator "mediator")
 
 # Setup
