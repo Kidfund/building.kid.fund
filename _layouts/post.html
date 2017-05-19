@@ -22,8 +22,8 @@
               <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{ site.author }}</h4>
               on
               <time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_string }}</time>
-              , tagged with {% for tag in page.tags %}<span class="post-tag-{{ slug }}">{% if forloop.first == false %}, {% endif %}<a href="/tag/{{ tag }}">{{ tag }}</a></span>{% endfor %}
-              , filed in {% for category in page.categories %}<span class="post-tag-{{ slug }}">{% if forloop.first == false %}, {% endif %}<a href="/category/{{ category }}">{{ category }}</a></span>{% endfor %}
+              , Filed in {% for category in page.categories %}<span class="post-tag-{{ slug }}">{% if forloop.first == false %}, {% endif %}<a href="/category/{{ category }}">{{ category }}</a></span>{% endfor %}
+              , Tagged with {% for tag in page.tags %}<span class="post-tag-{{ slug }}">{% if forloop.first == false %}, {% endif %}<a href="/tag/{{ tag }}">{{ tag }}</a></span>{% endfor %}
             </div>
             <div style="text-align:center">
               <a href="#topofpage" class="topofpage"><i class="fa fa-angle-down"></i></a>
@@ -81,7 +81,7 @@
             <h5 class="index-headline featured"><span>Supported by Open Source</span></h5>
             <footer class="site-footer">
               <section class="poweredby">Proudly published with <a href="http://jekyllrb.com"> Jekyll</a></section>
-              <a class="subscribe" href="{{ "/feed.xml" | prepend: site.baseurl }}"> <span class="tooltip"> <i class="fa fa-rss"></i> You should subscribe to my feed.</span></a>
+              <a class="subscribe" href="{{ "/feed.xml" | prepend: site.baseurl }}"> <span class="tooltip"> <i class="fa fa-rss"></i> You should subscribe to our feed.</span></a>
               <div class="inner">
                 <section class="copyright">All content copyright <a href="{{site.main_site_url}}">{{site.name}}</a> &copy; {{ site.time | date: '%Y' }}<br>All rights reserved.</section>
               </div>
