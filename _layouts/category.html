@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    {% include header.html %}
+
+    <!-- content start -->
+
+<div class="teaserimage">
+    <div class="teaserimage-image" {% if site.cover %}style="background-image: url({{ site.cover | prepend: site.baseurl }})"{% endif %}>
+        Teaser Image
+    </div>
+</div>
+
+<header class="blog-header">
+    {% if site.logo %}
+      <a class="blog-logo" href="{{site.url}}{{site.baseurl}}" style="background-image: url('{{ site.logo | prepend: site.baseurl }}')">{{ site.title }}</a>
+    {% endif %}
+    <h1 class="blog-title">{{ site.title }}</h1>
+    <h2 class="blog-description">{{ site.description }}</h2>
+    <div class="custom-links">
+      {% for social in site.social %}
+        {% if social.url %}
+            <a class="icon-{{ social.icon }}" href="{{ social.url }}" {% if social.desc %} title="{{ social.desc }}"{% endif %}">
+              <i class="fa fa-{{ social.icon }}"></i>
+            </a>
+            &nbsp;&nbsp;·&nbsp;&nbsp;
+        {% endif %}
+      {% endfor %}
+      <a href={{ "/about/" | prepend: site.baseurl }}>About</a>
+    </div>
+</header>
+
+
+<main class="content" role="main">
+
+    <h5 class="index-headline featured"><span>{{ page.title }}</span></h5>
+
+    <div class="container featured">
+      {% for post in page.posts %}
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting" role="article">
+          <div class="article-item">
+            <header class="post-header">
+              <h2 class="post-title" itemprop="name"><a href="{{ post.url | prepend: site.baseurl }}" itemprop="url">{{ post.title }}</a></h2>
+            </header>
+            <section class="post-excerpt" itemprop="description">
+              <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
+            </section>
+            <div class="post-meta">
+              <time datetime="{{ post.date | date_to_long_string }}">{{ post.date | date_to_long_string }}, </time>
+              {% for category in post.categories %}<span class="post-tag-{{ slug }}">{% if forloop.first == false %}, {% endif %}<a href="/category/{{ category }}">{{ category }}</a>: </span>{% endfor %}
+              {% for tag in post.tags %}<span class="post-tag-{{ slug }}">{% if forloop.first == false %}, {% endif %}<a href="/tag/{{ tag }}">{{ tag }}</a></span>{% endfor %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+</main>
+    <!-- content end -->
+
+    {% include footer.html %}
+    {% include javascripts.html %}
+
+  </body>
+
+</html>
