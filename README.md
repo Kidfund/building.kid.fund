@@ -13,7 +13,7 @@ cd building.kid.fund
 # Running Locally
 
 ```
-bundle exec jekyll serve
+bundle exec jekyll serve --incremental
 ```
 
 # Deploying
