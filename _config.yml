@@ -7,7 +7,7 @@ gems:
 # Site settings
 title: 'Building Kidfund'
 description: > # this means to ignore newlines until 'email:'
-   Code | Design | Product
+   Code | Design | Process
 
 email: info@kidfund.us
 #blog logo
