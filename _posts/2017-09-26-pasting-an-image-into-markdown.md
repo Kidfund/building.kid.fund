@@ -22,7 +22,7 @@ We're going to use shell scripting to get the same effect with a full image in t
 * This will be a separate command from the regular image one above.
 * The markdown files will have big data blobs in them.
   * I'm not sure if I'll like the tradeoff of not having to deal with extra files. Time will tell.
-* I've only tested this on a Mac. ¯\_(ツ)_/¯
+* I've only tested this on a Mac. [¯\\\_(ツ)\_/¯](https://media.giphy.com/media/d0SEajOmMna1i/giphy.gif)
 
 # Setup
 
