@@ -5,3 +5,4 @@ gem 'github-pages'
 gem 'bourbon'
 gem 'jemoji'
 gem 'jekyll-archives'
+gem 'jekyll-compose', group: [:jekyll_plugins]
