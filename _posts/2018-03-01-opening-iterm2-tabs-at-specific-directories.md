@@ -7,7 +7,7 @@ category: Hacks
 tags: applescript alfred iterm2 terminal automation
 ---
 
-I love [iTerm2](). The customizability and the [scripting support](https://www.iterm2.com/documentation-scripting.html) are _miles_ beyond the stock Terminal.app. One of my favorite features is the ability to open a set of tabs to specific directories. For example, I tend to open the same 4 tabs when working on [Kidfund](https://kid.fund/):
+I love [iTerm2](https://www.iterm2.com/). The customizability and the [scripting support](https://www.iterm2.com/documentation-scripting.html) are _miles_ beyond the stock Terminal.app. One of my favorite features is the ability to open a set of tabs to specific directories. For example, I tend to open the same 4 tabs when working on [Kidfund](https://kid.fund/):
 
 1. Our iOS project
 1. Our Laravel project - where I run [Artisan](https://laravel.com/docs/5.6/artisan) commands
