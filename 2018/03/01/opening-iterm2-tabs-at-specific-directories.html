@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+  <meta charset="utf-8">
+  <!-- (1) Optimize for mobile versions: http://goo.gl/EOpFl -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- (1) force latest IE rendering engine: bit.ly/1c8EiC9 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Opening iTerm2 Tabs at Specific Directories</title>
+  <meta name="description" content="I love iTerm2. The customizability and the scripting support are miles beyond the stock Terminal.app. One of my favorite features is the ability to open a set of tabs to specific directories. For e..." />
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@kidfund" />
+    <meta name="twitter:title" content="Opening iTerm2 Tabs at Specific Directories" />
+    <meta name="twitter:image" content="/assets/images/kidfund_logo.png" />
+    
+    <meta name="twitter:description"  content="I love iTerm2. The customizability and the scripting support are miles beyond the stock Terminal.app. One of my favorite features is the ability to open a set of tabs to specific directories. For e..." />
+    
+  
+  
+  <meta property="og:site_name" content="Building Kidfund" />
+  <meta property="og:title" content="Opening iTerm2 Tabs at Specific Directories"/>
+  
+  <meta property="og:description" content="I love iTerm2. The customizability and the scripting support are miles beyond the stock Terminal.app. One of my favorite features is the ability to open a set of tabs to specific directories. For e..." />
+  
+  <meta property="og:image" content="/assets/images/kidfund_logo.png" />
+  <meta property="og:url" content="/2018/03/01/opening-iterm2-tabs-at-specific-directories.html" >
+  <meta property="og:type" content="blog" />
+  <meta property="article:published_time" content="2018-03-01T14:30:00+00:00">
+
+  <link rel="canonical" href="/2018/03/01/opening-iterm2-tabs-at-specific-directories.html"/>
+  <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png"/>
+  <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+  <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
+</head>
+
+  <body itemscope itemtype="http://schema.org/Article">
+    <!-- header start -->
+
+
+  <a href="/" class="logo-readium"><span class="logo" style="background-image: url(/assets/images/kidfund_logo.png)"></span></a>
+
+<!-- header end -->
+
+    <main class="content" role="main">
+      <article class="post">
+        
+        <div class="noarticleimage">
+          <div class="post-meta">
+            <h1 class="post-title">Opening iTerm2 Tabs at Specific Directories</h1>
+            <div class="cf post-meta-text">
+              <div class="author-image" style="background-image: url()">Blog Logo</div>
+              <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person"></h4>
+              on
+              <time datetime="2018-03-01T14:30:00+00:00">01 Mar 2018</time>
+              , Filed in <span class="post-tag-"><a href="/category/Hacks">Hacks</a></span>
+              , Tagged with <span class="post-tag-"><a href="/tag/applescript">applescript</a></span><span class="post-tag-">, <a href="/tag/alfred">alfred</a></span><span class="post-tag-">, <a href="/tag/iterm2">iterm2</a></span><span class="post-tag-">, <a href="/tag/terminal">terminal</a></span><span class="post-tag-">, <a href="/tag/automation">automation</a></span>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        
+        <section class="post-content">
+          <div class="post-reading">
+            <span class="post-reading-time"></span> read
+          </div>
+          <a name="topofpage"></a>
+          <p>I love <a href="https://www.iterm2.com/">iTerm2</a>. The customizability and the <a href="https://www.iterm2.com/documentation-scripting.html">scripting support</a> are <em>miles</em> beyond the stock Terminal.app. One of my favorite features is the ability to open a set of tabs to specific directories. For example, I tend to open the same 4 tabs when working on <a href="https://kid.fund/">Kidfund</a>:</p>
+
+<ol>
+  <li>Our iOS project</li>
+  <li>Our Laravel project - where I run <a href="https://laravel.com/docs/5.6/artisan">Artisan</a> commands</li>
+  <li>The most recent file in the <code class="highlighter-rouge">logs</code> directory - sometimes I <code class="highlighter-rouge">cd</code> over to the <a href="https://realm.io/">Realm</a> directory to pop it into the <a href="https://github.com/realm/realm-browser-osx">Realm Browser</a></li>
+  <li>Our React project</li>
+</ol>
+
+<p>I didn’t want this to run <em>all</em> of the time, so I didn’t default this script run each time iTerm opens. Instead I wired it into an <a href="https://www.alfredapp.com">Alfred</a> command, which you can download <a href="https://github.com/Kidfund/KidTabs">here</a>.</p>
+
+<p>The underlying script is as follows. It’s crude, and could definitely be more flexible, but it works for me. 🤷‍♂️ Hopefully it can help you craft something to your needs!</p>
+
+<div class="language-applescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">tell</span><span class="w"> </span><span class="nb">application</span><span class="w"> </span><span class="s2">"iTerm2"</span><span class="w">
+  </span><span class="k">tell</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="nv">session</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="na">window</span><span class="w">
+    </span><span class="nb">write</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="s2">"cd ~/workspace/kidfund/ios/Kidfund"</span><span class="w">
+  </span><span class="k">end</span><span class="w"> </span><span class="k">tell</span><span class="w">
+  
+  </span><span class="k">tell</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="na">window</span><span class="w">
+    </span><span class="nv">create</span><span class="w"> </span><span class="nv">tab</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">profile</span><span class="w">
+    </span><span class="k">tell</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="nv">session</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="nv">tab</span><span class="w">
+      </span><span class="nb">write</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="s2">"cd ~/workspace/kidfund/web"</span><span class="w">
+    </span><span class="k">end</span><span class="w"> </span><span class="k">tell</span><span class="w">
+  </span><span class="k">end</span><span class="w"> </span><span class="k">tell</span><span class="w">
+  
+  </span><span class="k">tell</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="na">window</span><span class="w">
+    </span><span class="nv">create</span><span class="w"> </span><span class="nv">tab</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">profile</span><span class="w">
+    </span><span class="k">tell</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="nv">session</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="nv">tab</span><span class="w">
+      </span><span class="nb">write</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="s2">"cd ~/workspace/kidfund/web &amp;&amp; tail -f storage/logs/\"$(ls -at storage/logs | head -n 1)\""</span><span class="w">
+    </span><span class="k">end</span><span class="w"> </span><span class="k">tell</span><span class="w">
+  </span><span class="k">end</span><span class="w"> </span><span class="k">tell</span><span class="w">
+  
+  </span><span class="k">tell</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="na">window</span><span class="w">
+    </span><span class="nv">create</span><span class="w"> </span><span class="nv">tab</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">profile</span><span class="w">
+    </span><span class="k">tell</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="nv">session</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="nv">tab</span><span class="w">
+      </span><span class="nb">write</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="s2">"cd ~/workspace/kidfund/web-react"</span><span class="w">
+    </span><span class="k">end</span><span class="w"> </span><span class="k">tell</span><span class="w">
+  </span><span class="k">end</span><span class="w"> </span><span class="k">tell</span><span class="w">
+</span><span class="k">end</span><span class="w"> </span><span class="k">tell</span><span class="w">
+</span></code></pre></div></div>
+
+<p><em>This article was originally posted on <a href="http://www.timbroder.com/2016/07/Opening-iTerm2-Tabs-at-Specific-Directories.html">my personal site</a>.</em></p>
+
+          Questions? Feedback? Corrections?<br/>
+          Open an <a href="https://github.com/Kidfund/building.kid.fund/issues/new">issue</a> or submit a <a href="https://github.com/Kidfund/building.kid.fund/compare">pull request</a>
+        </section>
+        <footer class="post-footer">
+          <section class="share">
+            
+              
+            
+              
+                <a class="icon-twitter" href="http://twitter.com/share?text=Opening+iTerm2+Tabs+at+Specific+Directories&amp;url=/2018/03/01/opening-iterm2-tabs-at-specific-directories"
+                  onclick="window.open(this.href, 'twitter-share', 'width=550,height=255');return false;">
+                <i class="fa fa-twitter"></i><span class="hidden">twitter</span>
+                </a>
+              
+            
+              
+                <a class="icon-facebook" href="https://www.facebook.com/sharer.php?t=Opening+iTerm2+Tabs+at+Specific+Directories&amp;u=/2018/03/01/opening-iterm2-tabs-at-specific-directories"
+                  onclick="window.open(this.href, 'facebook-share', 'width=550,height=255');return false;">
+                <i class="fa fa-facebook"></i><span class="hidden">facebook</span>
+                </a>
+              
+            
+              
+            
+          </section>
+        </footer>
+        <div class="bottom-teaser cf">
+          <div class="isLeft">
+            <h5 class="index-headline featured"><span>Written by</span></h5>
+            <section class="author">
+              <div class="author-image" style="background-image: url()">Blog Logo</div>
+              <h4></h4>
+              <p>
+                
+                
+              <p>
+              <!-- <p class="bio"></p> -->
+              <hr>
+              <p class="published">Published <time datetime="2018-03-01 14:30">01 Mar 2018</time></p>
+            </section>
+          </div>
+          <div class="isRight">
+            <h5 class="index-headline featured"><span>Supported by Open Source</span></h5>
+            <footer class="site-footer">
+              <section class="poweredby">Proudly published with <a href="http://jekyllrb.com"> Jekyll</a></section>
+              <a class="subscribe" href="/feed.xml"> <span class="tooltip"> <i class="fa fa-rss"></i> You should subscribe to our feed.</span></a>
+              <div class="inner">
+                <section class="copyright">All content copyright <a href="http://www.kidfund.us">Kidfund</a> &copy; 2018<br>All rights reserved.</section>
+              </div>
+            </footer>
+          </div>
+        </div>
+        
+      </article>
+    </main>
+    <div class="bottom-closer">
+      <div class="background-closer-image"  style="background-image: url(/assets/images/providence-doucet-270555.jpg)">
+        Image
+      </div>
+      <div class="inner">
+        <h1 class="blog-title">Building Kidfund</h1>
+        <h2 class="blog-description">Code | Design | Process
+</h2>
+        <a href="/" class="btn">Back to Home</a>
+        <br/><br/>
+        <a href="http://link.kidfund.us/rZ7m/KvCXj4TzhD"><img src="/assets/images/appstore.png"></a>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/assets/js/index.js"></script>
+<script type="text/javascript" src="/assets/js/readingTime.min.js"></script>
+<script>
+(function ($) {
+  "use strict";
+  $(document).ready(function(){
+
+    var $window = $(window),
+    $image = $('.post-image-image, .teaserimage-image');
+    
+      $window.on('scroll', function() {
+        var top = $window.scrollTop();
+
+        if (top < 0 || top > 1500) { return; }
+        $image
+          .css('transform', 'translate3d(0px, '+top/3+'px, 0px)')
+          .css('opacity', 1-Math.max(top/700, 0));
+      });
+      $window.trigger('scroll');
+
+      var height = $('.article-image').height();
+      $('.post-content').css('padding-top', height + 'px');
+
+      $('a[href*=#]:not([href=#])').click(function() {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+         && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+          if (target.length) {
+            $('html,body').animate({ scrollTop: target.offset().top }, 500);
+            return false;
+          }
+        }
+      });
+
+  });
+}(jQuery));
+</script>
+
+<!-- Google Analytics -->
+<script>
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-73689903-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+  </body>
+</html>
